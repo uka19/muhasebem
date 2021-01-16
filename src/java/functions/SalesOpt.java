@@ -46,11 +46,11 @@ public class SalesOpt extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<b>Fatura</b> <br>");
-            out.println("Buyer_id: "+request.getParameter("buyer_id").toString()+"<br>");
-            out.println("Buyer_name: "+request.getParameter("buyer_name").toString()+"<br>");
-            out.println("Buyer_location: "+request.getParameter("buyer_location").toString()+"<br>");
-            out.println("Total_cost: "+request.getParameter("total_cost").toString()+"<br>");
-            out.println("Paid_cost: "+request.getParameter("paid_cost").toString()+"<br>");
+            out.println("Buyer_id: " + request.getParameter("buyer_id").toString() + "<br>");
+            out.println("Buyer_name: " + request.getParameter("buyer_name").toString() + "<br>");
+            out.println("Buyer_location: " + request.getParameter("buyer_location").toString() + "<br>");
+            out.println("Total_cost: " + request.getParameter("total_cost").toString() + "<br>");
+            out.println("Paid_cost: " + request.getParameter("paid_cost").toString() + "<br>");
             for (int i = 0; i < dizi.length; i++) {
                 out.println(dizi[i].toString());
             }
@@ -75,13 +75,13 @@ public class SalesOpt extends HttpServlet {
         HttpSession session = request.getSession(true);
         String id = String.valueOf(UUID.randomUUID());
         String seller_id = session.getAttribute("company_id").toString();
-        
+
         String[] dizi = request.getParameterValues("productid");
-        
+
         java.sql.Connection con;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/muhasebe?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=Turkey", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://bb64a04e09e247:6d719b48@eu-cdbr-west-03.cleardb.net/heroku_d634204acb5e17a?reconnect=true", "bb64a04e09e247", "6d719b48");
             String productQuery = "insert into bill(bill_id,seller_id,buyer_id,buyer_name,buyer_location,bill_cost,paid_cost) values(?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStmt = con.prepareStatement(productQuery);
             preparedStmt.setString(1, id);
@@ -91,15 +91,15 @@ public class SalesOpt extends HttpServlet {
             preparedStmt.setString(5, request.getParameter("buyer_location"));
             preparedStmt.setString(6, request.getParameter("total_cost"));
             preparedStmt.setString(7, request.getParameter("paid_cost"));
-            
+
             for (int i = 0; i < dizi.length; i++) {
                 String productQuery2 = "update products set piece = piece - 1 where product_id = ?";
                 PreparedStatement preparedStmt2 = con.prepareStatement(productQuery2);
                 preparedStmt2.setString(1, dizi[i]);
-                preparedStmt2.executeUpdate();        
-            } 
-            preparedStmt.execute();    
-            
+                preparedStmt2.executeUpdate();
+            }
+            preparedStmt.execute();
+
             for (int i = 0; i < dizi.length; i++) {
                 String productQuery3 = "insert into product_sell values (?, ?)";
                 PreparedStatement preparedStmt3 = con.prepareStatement(productQuery3);
@@ -107,7 +107,7 @@ public class SalesOpt extends HttpServlet {
                 preparedStmt3.setString(2, id);
                 preparedStmt3.execute();
             }
-           
+
             response.sendRedirect("dashboard");
         } catch (Exception e) {
             response.getWriter().write(e.toString());

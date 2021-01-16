@@ -34,13 +34,13 @@ public class OrderOpt extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String []dizi = request.getParameterValues("productid");
+        String[] dizi = request.getParameterValues("productid");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet OrderOpt</title>");            
+            out.println("<title>Servlet OrderOpt</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet OrderOpt at " + request.getContextPath() + "</h1>");
@@ -62,25 +62,24 @@ public class OrderOpt extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            HttpSession session = request.getSession(true);
+        HttpSession session = request.getSession(true);
         String id = String.valueOf(UUID.randomUUID());
         String orderer_id = session.getAttribute("company_id").toString();
         String seller_id = request.getParameter("seller_id").toString();
         String[] dizi = request.getParameterValues("productid");
-        
+
         java.sql.Connection con;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/muhasebe?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=Turkey", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://bb64a04e09e247:6d719b48@eu-cdbr-west-03.cleardb.net/heroku_d634204acb5e17a?reconnect=true", "bb64a04e09e247", "6d719b48");
             String productQuery = "insert into order_list values(?, ?, ?)";
             PreparedStatement preparedStmt = con.prepareStatement(productQuery);
             preparedStmt.setString(1, id);
             preparedStmt.setString(2, orderer_id);
             preparedStmt.setString(3, seller_id);
-            
-           
-            preparedStmt.execute();    
-            
+
+            preparedStmt.execute();
+
             for (int i = 0; i < dizi.length; i++) {
                 String productQuery3 = "insert into products_order values (?,?)";
                 PreparedStatement preparedStmt3 = con.prepareStatement(productQuery3);

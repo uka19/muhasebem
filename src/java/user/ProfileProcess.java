@@ -80,7 +80,7 @@ public class ProfileProcess extends HttpServlet {
         }
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/muhasebe?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=Turkey", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://bb64a04e09e247:6d719b48@eu-cdbr-west-03.cleardb.net/heroku_d634204acb5e17a?reconnect=true", "bb64a04e09e247", "6d719b48");
             String productQuery = "update users set name = ?, surname = ?, email = ?, photo = ? where user_id = ?";
             PreparedStatement preparedStmt = con.prepareStatement(productQuery);
             preparedStmt.setString(1, request.getParameter("name"));
@@ -119,7 +119,7 @@ public class ProfileProcess extends HttpServlet {
             case "change": {
                 try {
                     Class.forName("com.mysql.jdbc.Driver");
-                    con = DriverManager.getConnection("jdbc:mysql://localhost:3306/muhasebe?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=Turkey", "root", "");
+                    con = DriverManager.getConnection("jdbc:mysql://bb64a04e09e247:6d719b48@eu-cdbr-west-03.cleardb.net/heroku_d634204acb5e17a?reconnect=true", "bb64a04e09e247", "6d719b48");
                     String productQuery = "update users set password = ? where password = ? and user_id = ?";
                     PreparedStatement preparedStmt = con.prepareStatement(productQuery);
                     preparedStmt.setString(1, getMd5(request.getParameter("newpass")));
@@ -140,11 +140,11 @@ public class ProfileProcess extends HttpServlet {
 
                 Part filePart = request.getPart("photo");
                 if (filePart != null) {
-                    inputStream = filePart.getInputStream();  
+                    inputStream = filePart.getInputStream();
                 }
                 try {
                     Class.forName("com.mysql.jdbc.Driver");
-                    con = DriverManager.getConnection("jdbc:mysql://localhost:3306/muhasebe?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=Turkey", "root", "");
+                    con = DriverManager.getConnection("jdbc:mysql://bb64a04e09e247:6d719b48@eu-cdbr-west-03.cleardb.net/heroku_d634204acb5e17a?reconnect=true", "bb64a04e09e247", "6d719b48");
                     String productQuery = "update users set name = ?, surname = ?, email = ?, photo = ? where user_id = ?";
                     PreparedStatement preparedStmt = con.prepareStatement(productQuery);
                     preparedStmt.setString(1, request.getParameter("name"));
@@ -153,9 +153,9 @@ public class ProfileProcess extends HttpServlet {
                     if (inputStream != null) {
                         // fetches input stream of the upload file for the blob column
                         preparedStmt.setBinaryStream(4, filePart.getInputStream());
-                        
+
                     }
-                    
+
                     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                     byte[] buffer = new byte[4096];
                     int bytesRead = -1;

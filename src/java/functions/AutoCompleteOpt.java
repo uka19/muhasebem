@@ -40,7 +40,7 @@ public class AutoCompleteOpt extends HttpServlet {
         response.setContentType("application/json");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
+
         }
     }
 
@@ -59,27 +59,28 @@ public class AutoCompleteOpt extends HttpServlet {
         HttpSession session = request.getSession(true);
         String term = request.getParameter("term");
         System.out.println("Data from ajax call " + term);
-        ArrayList<Company> list = getAllCountriesCheck(term,session);
+        ArrayList<Company> list = getAllCountriesCheck(term, session);
         //System.out.println(list);
-        
+
         response.getWriter().write(new Gson().toJson(list));
 
         processRequest(request, response);
     }
+
     public ArrayList<Company> getAllCountriesCheck(String l, HttpSession s) {
         java.sql.Connection con;
-        
+
         ArrayList<Company> list = new ArrayList<Company>();
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/muhasebe?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=Turkey", "root", "");  
+            con = DriverManager.getConnection("jdbc:mysql://bb64a04e09e247:6d719b48@eu-cdbr-west-03.cleardb.net/heroku_d634204acb5e17a?reconnect=true", "bb64a04e09e247", "6d719b48");
             String query = "select * from companies where company_name like ? and company_id != ?";
             PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, l+"%");
+            preparedStmt.setString(1, l + "%");
             preparedStmt.setString(2, s.getAttribute("company_id").toString());
             ResultSet rs = preparedStmt.executeQuery();
             while (rs.next()) {
-                
+
                 //System.out.println(data);
                 list.add(new Company(rs.getString("company_id"), rs.getString("company_name"), rs.getString("company_location"), rs.getString("web_address")));
             }

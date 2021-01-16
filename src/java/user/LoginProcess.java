@@ -85,7 +85,7 @@ public class LoginProcess extends HttpServlet {
         java.sql.Connection con;
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/muhasebe?useUnicode=true&useLegacyDatetimeCode=false&serverTimezone=Turkey", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://bb64a04e09e247:6d719b48@eu-cdbr-west-03.cleardb.net/heroku_d634204acb5e17a?reconnect=true", "bb64a04e09e247", "6d719b48");
 
             String loginQuery = "select users.user_id, users.name, users.surname, users.email, users.role_id, users.company_id, users.photo, companies.company_name, companies.company_location, companies.web_address from users,companies where users.company_id = companies.company_id and email=? and password=?";
             PreparedStatement st = con.prepareStatement(loginQuery);
