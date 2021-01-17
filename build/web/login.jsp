@@ -56,7 +56,7 @@
         %>
         $('#myAlert').show();
         window.setTimeout(function () {
-            $("#myAlert2").fadeTo(500, 0).slideUp(500, function () {
+            $("#myAlert").fadeTo(500, 0).slideUp(500, function () {
                 $(this).remove();
             });
         }, 2000);
