@@ -108,7 +108,7 @@ public class SalesOpt extends HttpServlet {
                 preparedStmt3.execute();
             }
 
-            response.sendRedirect("dashboard");
+            response.sendRedirect("bills");
         } catch (Exception e) {
             response.getWriter().write(e.toString());
         }
