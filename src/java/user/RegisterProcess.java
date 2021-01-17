@@ -115,7 +115,7 @@ public class RegisterProcess extends HttpServlet {
             preparedStmt2.execute();
 
             con.close();
-            response.sendRedirect("login?message=succes");
+            response.sendRedirect("login?message=success");
         } catch (SQLIntegrityConstraintViolationException e) {
             response.getWriter().write(e.toString());
             if (i == 0) {
