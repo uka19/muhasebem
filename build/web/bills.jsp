@@ -29,6 +29,9 @@
         if (session.getAttribute("email") == null) {
             response.sendRedirect("login");
         }
+        if (session.getAttribute("role_id").equals("3")||session.getAttribute("role_id").equals("2")){
+            response.sendRedirect("dashboard");
+        }
     %>
     <%@include file="components/sidenav.jsp" %>
 <div id="main">
