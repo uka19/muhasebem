@@ -71,9 +71,8 @@
             </div>
             <div class="col-4">
                 <h2>Şifre Değiştir</h2>
-                <form id="form_control" method="post" action='ProfileProcess'>
+                <form id="form_control" method="post" action='ProfileProcess' enctype='multipart/form-data'>
                     <div id='box' class="container-fluid center mt-5 shadow border rounded bg-light">
-
                         <div class="form-group">
                             <label for="inputMail">Eski Şifre</label>
                             <input required type="password" class="form-control" placeholder="****" name="oldpass"/>
@@ -81,11 +80,7 @@
                         <div class="form-group">
                             <label for="inputMail">Yeni Şifre</label>
                             <input required type="password" class="form-control" placeholder="****" name="newpass"/>
-                        </div>
-                        <div class="form-group">
-                            <label for="inputMail">Yeni Şifre Tekrar</label>
-                            <input required type="password" class="form-control"  placeholder="****" name="newpass"/>
-                        </div>
+                        </div>   
                         <input type="hidden" name="user_id" value="<%= session.getAttribute("user_id")%>"/>
                         <button type="submit" class="btn btn-primary" name="action" value="change"/>Değiştir</button>
                     </div>
