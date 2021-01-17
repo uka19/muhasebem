@@ -96,11 +96,10 @@ public class RegisterProcess extends HttpServlet {
             preparedStmt.setString(3, request.getParameter("company_location1") + " " + request.getParameter("company_location2"));
             preparedStmt.setString(4, request.getParameter("web_address"));
 
-            File file = new File("C:\\Users\\uğur kerim\\Documents\\NetBeansProjects\\muhasebem\\web\\images\\img_avatar1.png");
-            FileInputStream fin = new FileInputStream(file);
+            
 
-            String userQuery = " insert into users (name, surname, email, password, role_id, company_id, photo)"
-                    + " values (?, ?, ?, ?, ?, ?, ?)";
+            String userQuery = " insert into users (name, surname, email, password, role_id, company_id)"
+                    + " values (?, ?, ?, ?, ?, ?)";
             PreparedStatement preparedStmt2 = con.prepareStatement(userQuery);
             preparedStmt2.setString(1, request.getParameter("name"));
             preparedStmt2.setString(2, request.getParameter("surname"));
@@ -108,7 +107,6 @@ public class RegisterProcess extends HttpServlet {
             preparedStmt2.setString(4, getMd5(request.getParameter("password")));
             preparedStmt2.setString(5, "1");
             preparedStmt2.setString(6, id);
-            preparedStmt2.setBinaryStream(7, fin);
 
             preparedStmt.execute();
             i++;

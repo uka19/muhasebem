@@ -106,22 +106,24 @@ public class LoginProcess extends HttpServlet {
                 session.setAttribute("company_name", rs.getString("company_name"));
                 session.setAttribute("company_location", rs.getString("company_location"));
                 session.setAttribute("web_address", rs.getString("web_address"));
-                Blob blob = rs.getBlob("photo");
-                InputStream inputStream = blob.getBinaryStream();
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                byte[] buffer = new byte[4096];
-                int bytesRead = -1;
-                 
-                while ((bytesRead = inputStream.read(buffer)) != -1) {
-                    outputStream.write(buffer, 0, bytesRead);                  
+                if (rs.getBlob("photo") != null) {
+                    Blob blob = rs.getBlob("photo");
+                    InputStream inputStream = blob.getBinaryStream();
+                    ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                    byte[] buffer = new byte[4096];
+                    int bytesRead = -1;
+
+                    while ((bytesRead = inputStream.read(buffer)) != -1) {
+                        outputStream.write(buffer, 0, bytesRead);
+                    }
+
+                    byte[] imageBytes = outputStream.toByteArray();
+                    String base64Image = Base64.getEncoder().encodeToString(imageBytes);
+                    session.setAttribute("baseImage", base64Image);
+
+                    inputStream.close();
+                    outputStream.close();
                 }
-                 
-                byte[] imageBytes = outputStream.toByteArray();
-                String base64Image = Base64.getEncoder().encodeToString(imageBytes);
-                session.setAttribute("baseImage", base64Image);
-                 
-                inputStream.close();
-                outputStream.close();
                 con.close();
                 response.sendRedirect("dashboard");
             } else {

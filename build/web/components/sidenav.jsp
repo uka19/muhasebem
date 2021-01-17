@@ -55,7 +55,7 @@
     <div id="mySidenav" class="sidenav bg-light" style="white-space: nowrap;">
         <h3 class="text-center">Kullanıcı</h3>
         <div class="container card col-10 text-center" >
-            <img src="data:image/jpg;base64,<%=session.getAttribute("baseImage")%>" class="rounded-circle" style="width: 50px; height: 50px;margin: auto; margin-top: 5px;">
+            <img id="photo" src="data:image/jpg;base64,<%=session.getAttribute("baseImage")%>" class="rounded-circle" style="width: 50px; height: 50px;margin: auto; margin-top: 5px;">
                 <h6><%=session.getAttribute("email")%></h6>
                 <h5><%=session.getAttribute("name")%></h5> 
 
@@ -109,7 +109,7 @@
                         </li>
                     </c:when>
                     <c:when test = "${role_id == 2}">
-                        
+
                         <li class="nav-item">
                             <a id="dashboard" class="nav-link"  href="dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a>
                         </li>
@@ -181,6 +181,13 @@
                 document.getElementById("main").style.marginLeft = "250px";
             }
         }
+        <%
+            if (session.getAttribute("baseImage") == null) {
+        %>
+            $('#photo').attr("src","images/img_avatar1.png");
+        <%
+            }
+        %>
 
 
     </script>

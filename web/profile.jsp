@@ -117,7 +117,7 @@
     $("#input_photo").change(function () {
         readURL(this);
     });
-    
+
 
     $('#myAlert2').hide();
     $('#myAlert').hide();
@@ -136,6 +136,13 @@
             $(this).remove();
         });
     }, 2000);
+    <%
+        }
+    %>
+    <%
+        if (session.getAttribute("baseImage") == null) {
+    %>
+            $('#profile_photo').attr("src", "images/img_avatar1.png");
     <%
         }
     %>
