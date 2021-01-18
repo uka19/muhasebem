@@ -128,7 +128,7 @@ public class LoginProcess extends HttpServlet {
                 response.sendRedirect("dashboard");
             } else {
                 con.close();
-                response.sendRedirect("login");
+                response.sendRedirect("login?message=fail");
             }
 
         } catch (Exception e) {

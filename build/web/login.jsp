@@ -48,15 +48,28 @@
     <div class="container mt-2 alert alert-success alert-dismissible" id="myAlert" >
         <strong>Başarılı!</strong> Kayıt İşlemi Başarılı. Giriş Yapabilirsiniz..
     </div>
+    <div class="container mt-2 alert alert-danger alert-dismissible" id="myAlert2" >
+        <strong>Başarısız!</strong> Kullanıcı adı veya şifreyi kontrol ediniz.
+    </div>
     <script>
         $('#bigbox').animate({opacity: '1'}, "slow")
         $('#box').animate({bottom: '50px'})
         $('#myAlert').hide();
+        $('#myAlert2').hide();
         <%if (request.getParameter("message") != null && request.getParameter("message").equals("success")) {
         %>
         $('#myAlert').show();
         window.setTimeout(function () {
             $("#myAlert").fadeTo(500, 0).slideUp(500, function () {
+                $(this).remove();
+            });
+        }, 2000);
+        <%}%>
+        <%if (request.getParameter("message") != null && request.getParameter("message").equals("fail")) {
+        %>
+        $('#myAlert2').show();
+        window.setTimeout(function () {
+            $("#myAlert2").fadeTo(500, 0).slideUp(500, function () {
                 $(this).remove();
             });
         }, 2000);

@@ -22,11 +22,13 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    
+    
 
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 </head>
 <body>
     <%
@@ -47,7 +49,7 @@
         </a>
     </nav>
     <div class="container">
-        <form method="get" action='SalesOpt'>
+        <form method="get" action='SalesOpt' name="sale">
             <div class="row">
                 <div class="col-6">
                     <h2>Alıcı Firma</h2> 
@@ -167,6 +169,7 @@
     </div>
 </div>
 <script>
+    var totalPrice = 0;
     $(document).ready(function () {
         $(function () {
             let values;
@@ -207,9 +210,40 @@
                 }
             });
         });
+        $(function () {
+            // Initialize form validation on the registration form.
+            // It has the name attribute "registration"
+            $("form[name='sale']").validate({
+                // Specify validation rules
+                rules: {
+                    // The key name on the left side is the name attribute
+                    // of an input field. Validation rules are defined
+                    // on the right side
+                    paid_cost: {
+                        required: true,
+                        // Specify that email should be validated
+                        // by the built-in "email" rule
+                        max:totalPrice
+                    }
+                },
+                // Specify validation error messages
+                messages: {
+                    paid_cost: {
+                        required: "Lütfen Ödenen tutarı giriniz",
+                        max:"Toplam ücretin üzerinde giremezssiniz"
+                    },
+                    
+                },
+                // Make sure the form is submitted to the destination defined
+                // in the "action" attribute of the form when valid
+                submitHandler: function (form) {
+                    form.submit();
+                }
+            });
+        });
     });
     var i = 0;
-    var totalPrice = 0;
+    
     $(".use-address").click(function () {
         var $row = $(this).closest("tr");    // Find the row
         var $product_name = $row.find(".product_name").text(); // Find the text
@@ -247,6 +281,7 @@
         }
         return rows;
     }
+    
 
 </script>
 </body>
