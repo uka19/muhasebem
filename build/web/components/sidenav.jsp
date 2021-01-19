@@ -109,7 +109,6 @@
                         </li>
                     </c:when>
                     <c:when test = "${role_id == 2}">
-
                         <li class="nav-item">
                             <a id="dashboard" class="nav-link"  href="dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a>
                         </li>
@@ -117,16 +116,21 @@
                             <a id="products" class="nav-link" href="products"><i class="fab fa-product-hunt"></i> Ürünler</a>
                         </li>
                         <li class="nav-item">
+                            <a id="profile" class="nav-link" href="profile"><i class="fas fa-user-alt"></i> Hesap</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="LogOutProcess"><i class="fa fa-close"></i> Çıkış</a>
                         </li>
                     </c:when>
                     <c:when test = "${role_id == 3}">
-                        Ürün Daışmanı
                         <li class="nav-item">
                             <a id="dashboard" class="nav-link"  href="dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a>
                         </li>
                         <li class="nav-item">
                             <a id="sales" class="nav-link" href="sales"><i class="fas fa-shopping-cart"></i> Satış</a>
+                        </li>
+                        <li class="nav-item">
+                            <a id="profile" class="nav-link" href="profile"><i class="fas fa-user-alt"></i> Hesap</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="LogOutProcess"><i class="fa fa-close"></i> Çıkış</a>
@@ -137,10 +141,10 @@
                             <a id="dashboard" class="nav-link"  href="dashboard"><i class="fa fa-fw fa-home"></i> Dashboard</a>
                         </li>
                         <li class="nav-item">
-                            <a id="profile" class="nav-link" href="profile"><i class="fas fa-user-alt"></i> Hesap</a>
+                            <a id="bills" class="nav-link" href="bills"><i class="fas fa-cash-register"></i> Faturalar</a>
                         </li>
                         <li class="nav-item">
-                            <a id="bills" class="nav-link" href="bills"><i class="fas fa-cash-register"></i> Faturalar</a>
+                            <a id="profile" class="nav-link" href="profile"><i class="fas fa-user-alt"></i> Hesap</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="LogOutProcess"><i class="fa fa-close"></i> Çıkış</a>
