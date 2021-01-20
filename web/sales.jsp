@@ -22,20 +22,20 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
-    
-    
+
+
 
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 </head>
 <body>
     <%
         if (session.getAttribute("email") == null) {
             response.sendRedirect("login");
         }
-        if(session.getAttribute("role_id").equals("2")||session.getAttribute("role_id").equals("4") ){
+        if (session.getAttribute("role_id").equals("2") || session.getAttribute("role_id").equals("4")) {
             response.sendRedirect("dashboard");
         }
     %>
@@ -155,7 +155,7 @@
                                 <tr>
                                     <th>Ödenen Ücret</th>
                                     <th>=</th>
-                                    <th><input id="paid" type="number" class="input" name="paid_cost" required/></th>
+                                    <th><input id="paid" type="number" class="input" name="paid_cost" max="totalPrice" required/></th>
                                 </tr>
                                 <tr>
                                     <th><input type="submit" class="btn btn-primary" value="Devam"/></th>
@@ -210,40 +210,9 @@
                 }
             });
         });
-        $(function () {
-            // Initialize form validation on the registration form.
-            // It has the name attribute "registration"
-            $("form[name='sale']").validate({
-                // Specify validation rules
-                rules: {
-                    // The key name on the left side is the name attribute
-                    // of an input field. Validation rules are defined
-                    // on the right side
-                    paid_cost: {
-                        required: true,
-                        // Specify that email should be validated
-                        // by the built-in "email" rule
-                        max:totalPrice
-                    }
-                },
-                // Specify validation error messages
-                messages: {
-                    paid_cost: {
-                        required: "Lütfen Ödenen tutarı giriniz",
-                        max:"Toplam ücretin üzerinde giremezssiniz"
-                    },
-                    
-                },
-                // Make sure the form is submitted to the destination defined
-                // in the "action" attribute of the form when valid
-                submitHandler: function (form) {
-                    form.submit();
-                }
-            });
-        });
     });
     var i = 0;
-    
+
     $(".use-address").click(function () {
         var $row = $(this).closest("tr");    // Find the row
         var $product_name = $row.find(".product_name").text(); // Find the text
@@ -251,11 +220,17 @@
         var $product_id = $row.find(".product-id").text();
         // Let's test it out
         //alert($product_id);
+
         i++;
         totalPrice += parseInt($sell_cost);
         writePrice();
         $("#basket").append('<tr><td scope="col">' + i + '</td><td scope="col">' + $product_name + '</td><td scope="col" class="cost">' + $sell_cost + '</td><td scope="col"><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" onclick="deleteRow(this)">-</button></td><input type="hidden" class="form-control" id="productID" name="productid" value="' + $product_id + '"/></tr>');
+        $("input").attr({
+            "max": totalPrice        // values (or variables) here
+        });
+
     });
+
     function deleteRow(r) {
         var s = $(r).closest("tr");
         var c = s.find(".cost").text();
@@ -281,8 +256,6 @@
         }
         return rows;
     }
-    
-
 </script>
 </body>
 </html>

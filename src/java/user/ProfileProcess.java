@@ -5,6 +5,7 @@
  */
 package user;
 
+import com.mysql.cj.jdbc.exceptions.MysqlDataTruncation;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -177,7 +178,10 @@ public class ProfileProcess extends HttpServlet {
                     session.setAttribute("email", request.getParameter("email"));
                     session.setAttribute("baseImage", base64Image);
                     response.sendRedirect("profile");
-                } catch (Exception e) {
+                }catch (MysqlDataTruncation e) {
+                    response.sendRedirect("profile?message=fail");
+                }
+                catch (Exception e) {
                     response.getWriter().write(e.toString());
                 }
             }

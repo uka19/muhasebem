@@ -19,6 +19,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
 </head>
 <body>
     <%
@@ -95,7 +96,11 @@
     <div class="container mt-2 alert alert-success alert-dismissible" id="myAlert2" >
         <strong>Başarılı!</strong> İşlem başarılı bir şekilde yerine getirildi.
     </div>
+    <div class="container mt-2 alert alert-danger alert-dismissible" id="myAlert3" >
+        <strong>Başarısız!</strong> Fotoğraf Boyutu Çok Büyük
+    </div> 
 </div>
+
 
 <script>
     function readURL(input) {
@@ -113,7 +118,7 @@
         readURL(this);
     });
 
-
+    $('#myAlert3').hide();
     $('#myAlert2').hide();
     $('#myAlert').hide();
     <%if (request.getParameter("message") != null && request.getParameter("message").equals("success")) {
@@ -134,10 +139,19 @@
     <%
         }
     %>
+    <%if (request.getParameter("message") != null && request.getParameter("message").equals("fail")) {
+    %>
+    $('#myAlert3').show();
+    window.setTimeout(function () {
+        $("#myAlert3").fadeTo(500, 0).slideUp(500, function () {
+            $(this).remove();
+        });
+    }, 2000);
+    <%}%>
     <%
         if (session.getAttribute("baseImage") == null) {
     %>
-            $('#profile_photo').attr("src", "images/img_avatar1.png");
+    $('#profile_photo').attr("src", "images/img_avatar1.png");
     <%
         }
     %>
